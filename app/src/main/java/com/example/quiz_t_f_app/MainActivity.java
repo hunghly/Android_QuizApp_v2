@@ -12,19 +12,39 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.quiz_t_f_app.controller.CardStackAdapter;
+import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
+import com.yuyakaido.android.cardstackview.CardStackView;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private RequestQueue mRequestQueue;
     private String url;
+    private CardStackView mCardStackView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // Set up CardStackView
+        mCardStackView = findViewById(R.id.myCardStackView);
+        mCardStackView.setLayoutManager(new CardStackLayoutManager(this));
+
+        // create some test values for the films
+        ArrayList<String> testFilms = new ArrayList<>();
+        testFilms.add("Matrix");
+        testFilms.add("Goldeneye");
+        testFilms.add("The Pledge");
+        testFilms.add("Basketball Diaries");
+
+        mCardStackView.setAdapter(new CardStackAdapter(this, testFilms)); // set the adapter
+
+
         // Initialize the request queue using VolleySingleton class i.e. retrieve the object
         mRequestQueue = VolleySingleton.getInstance().getRequestQueue();
         // Set url

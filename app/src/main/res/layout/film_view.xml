@@ -3,12 +3,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:background="#ff9933"
+    >
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#0F0">
+        app:cardElevation="5dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,7 +22,8 @@
             <TextView
                 android:id="@+id/film_question_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="center"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,7 +36,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#FFF"
-                    android:src="@drawable/true__image" />
+                    android:src="@drawable/true__image"
+                    android:contentDescription="TODO" />
                 <!--using layout_weight of 1 makes the buttons take up 50% of space each-->
                 <ImageButton
                     android:id="@+id/falseButton"
@@ -39,7 +45,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#FFF"
-                    android:src="@drawable/false_image" />
+                    android:src="@drawable/false_image"
+                    android:contentDescription="TODO" />
             </LinearLayout>
 
 

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quiz_t_f_app.R;
+import com.example.quiz_t_f_app.model.QuizQuestion;
 import com.example.quiz_t_f_app.view.FilmViewHolder;
 
 import java.util.List;
@@ -17,12 +18,12 @@ import java.util.List;
 public class CardStackAdapter extends RecyclerView.Adapter<FilmViewHolder> {
 
     private Context mContext;
-    private List<String> mFilmNames;
+    private List<QuizQuestion> mFilmQuestions;
     private LayoutInflater mLayoutInflater;
 
-    public CardStackAdapter(Context context, List<String> filmNames) {
+    public CardStackAdapter(Context context, List<QuizQuestion> filmQuestions) {
         mContext = context;
-        mFilmNames = filmNames;
+        mFilmQuestions = filmQuestions;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
@@ -35,26 +36,34 @@ public class CardStackAdapter extends RecyclerView.Adapter<FilmViewHolder> {
 
     // the main function called for each item in the list
     @Override
-    public void onBindViewHolder(@NonNull FilmViewHolder holder, int position) {
-        holder.getTxtFilmQuestion().setText(mFilmNames.get(position)); // sets the text for the txtFilm element
+    public void onBindViewHolder(@NonNull FilmViewHolder holder, final int position) {
+        holder.getTxtFilmQuestion().setText(mFilmQuestions.get(position).getQuestionText()); // sets the text for the txtFilm element
         // adds event listeners for each button
         holder.getImgButtonTrue().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "True is tapped", Toast.LENGTH_SHORT).show();
+                if (mFilmQuestions.get(position).isTrueAnswer()) {
+                    Toast.makeText(mContext, "You are correct, congrats!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, "You are wrong...", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         holder.getImgButtonFalse().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "False is tapped", Toast.LENGTH_SHORT).show();
+                if (!mFilmQuestions.get(position).isTrueAnswer()) {
+                    Toast.makeText(mContext, "You are correct, congrats!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, "You are wrong...", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return mFilmNames.size(); // the number of items we want to show in our card view
+        return mFilmQuestions.size(); // the number of items we want to show in our card view
     }
 }
